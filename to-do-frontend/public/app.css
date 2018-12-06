@@ -1,0 +1,28 @@
+.done {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.body--background{
+  background-image: url('images/leaves.png');
+}
+
+.body--font {
+  font-family: 'Handlee', cursive;
+}
+
+.h1--block {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 2px dotted lightgray;
+  background-color: rgb(221, 250, 216)
+}
+
+.counter--block {
+  margin: 1px;
+  padding: 6px;
+}
+
+.counter__type {
+  margin: 1rem;
+}
