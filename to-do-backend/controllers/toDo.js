@@ -1,4 +1,4 @@
-const ToDo = require('../models/toDo')
+const ToDo = require('../models/models')
 
 module.exports = {
     getToDos: () => {
