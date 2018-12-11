@@ -47,7 +47,7 @@ class Form extends Component {
               className='form-control'
               onChange={this.handleChange}
               value={this.state.categoryOption}>
-                <option selected value=''>Select a Category</option>
+                <option value=''>Select a Category</option>
                 {this.props.categoryList}
               </select>
             </span>

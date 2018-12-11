@@ -4,8 +4,18 @@ import {ToDo} from './'
 class ToDoList extends Component {
 
     render() {
-      this.props.splitToDos.sort((a,b) => b.id - a.id)
-      let list = this.props.splitToDos.map((todo) => { 
+      let viewToDosByStatus = this.props.viewToDosByCategory.filter((todo) => {
+        if (this.props.displayOption === 'active' && todo.completed === false) {
+          return todo
+        } else if (this.props.displayOption === 'complete' && todo.completed === true) {
+          return todo
+        } else {
+          return this.props.displayOption === 'all'
+        }
+      })
+
+      const sortByDateAdded = viewToDosByStatus.sort((a,b) => b.id - a.id)
+      let list = sortByDateAdded.map((todo) => { 
         return <ToDo
           key={todo.id}
           id={todo.id}

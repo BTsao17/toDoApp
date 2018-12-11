@@ -77,20 +77,22 @@ class App extends Component {
   selectedCategory = (e) => {
     this.setState({
       categoryOption: e.target.value
-    }, () => this.viewToDoByCategory())
+    }
+      //, () => this.viewToDoByCategory()
+    )
   }
 
-  viewToDoByCategory = () => {
-    axios
-      .get(`${baseUrl}/${this.state.categoryOption}`)
-      .then((response) => {
-        //console.log(response)
-        this.setState({
-          toDoArr: response.data
-        })
-      })
-      .catch(err => console.log(err))
-  }
+  // viewToDoByCategory = () => {
+  //   axios
+  //     .get(`${baseUrl}/${this.state.categoryOption}`)
+  //     .then((response) => {
+  //       //console.log(response)
+  //       this.setState({
+  //         toDoArr: response.data
+  //       })
+  //     })
+  //     .catch(err => console.log(err))
+  // }
 
   componentDidMount() {
     //combining two get requests
@@ -99,7 +101,6 @@ class App extends Component {
       axios.get(`${baseUrl}/category`)
     ])
       .then(([toDosResponse, categoriesResponse]) => {
-        //console.log(categoriesResponse.data)
         this.setState({
           toDoArr: toDosResponse.data,
           categories: categoriesResponse.data
@@ -111,23 +112,29 @@ class App extends Component {
   }
 
   render() {
-    //console.log(this.state.categoryOption)
-
     let disableButton = this.state.toDoArr.find((task) => {
       return task.completed
     })
 
-    let splitToDos = this.state.toDoArr.filter((todo) => {
-      if (this.state.displayOption === 'active' && todo.completed === false) {
-        return todo
-      } else if (this.state.displayOption === 'complete' && todo.completed === true) {
-        return todo
-      } else if (this.state.displayOption === 'all') {
+    let viewToDosByCategory = this.state.toDoArr.filter((todo) => {
+      if (Number(this.state.categoryOption) === 0) {
         return todo
       } else {
-        return null
+        return Number(this.state.categoryOption) === todo.category_id
       }
     })
+
+    // let viewToDosByStatus = this.state.toDoArr.filter((todo) => {
+    //   if (this.state.displayOption === 'active' && todo.completed === false) {
+    //     return todo
+    //   } else if (this.state.displayOption === 'complete' && todo.completed === true) {
+    //     return todo
+    //   } else if (this.state.displayOption === 'all') {
+    //     return todo
+    //   } else {
+    //     return null
+    //   }
+    // })
 
     let countTask = this.state.toDoArr.reduce((acc, currV) => {
       let key = currV['completed']
@@ -153,26 +160,26 @@ class App extends Component {
         </div>
 
         <div>
-          <select onChange={this.selectedView}>
+          <select value={this.state.displayOption} onChange={this.selectedView}>
             <option value='all'>all</option>
-            <option selected value='active'>active</option>
+            <option value='active'>active</option>
             <option value='complete'>complete</option>
           </select>
 
           <button className='pull-right btn btn-default'
             onClick={this.clearCompleted}
             disabled={disableButton ? false : true}
-          >Clear Complete</button>
+          >Clear All Completed</button>
 
-          
-            <label>Categories:</label>
-            <select onChange={this.selectedCategory}>
-              <option value='0'>All</option>
-              {categoryList}
-            </select>
 
-            <button> Add Category</button>
-          
+          <label>Categories:</label>
+          <select onChange={this.selectedCategory}>
+            <option value='0'>All</option>
+            {categoryList}
+          </select>
+
+          <button> Add Category</button>
+
 
           <span className='counter--block float-right'>
             <span className='counter__type'>All: {this.state.toDoArr.length}</span>
@@ -183,7 +190,10 @@ class App extends Component {
 
         <Form addToDoList={this.addToDoList} categoryList={categoryList} />
 
-        <ToDoList splitToDos={splitToDos} changeCompleted={this.changeCompleted} />
+        <ToDoList viewToDosByCategory={viewToDosByCategory}
+          displayOption={this.state.displayOption}
+          changeCompleted={this.changeCompleted}
+        />
 
       </div>
     )
