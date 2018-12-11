@@ -1,9 +1,9 @@
-const ToDo = require('../models/models')
+const Model = require('../models/models')
 
 module.exports = {
     getToDos: () => {
         return new Promise((resolve, reject) => {
-            ToDo
+            Model.ToDo
                 .fetchAll()
                 .then(toDos => {
                     resolve(toDos.models.map(toDo => toDo.attributes))
@@ -13,9 +13,10 @@ module.exports = {
     },
     addToDo: (toDo) => {
         return new Promise((resolve, reject) => {
-            const newToDo = new ToDo({
+            const newToDo = new Model.ToDo({
                 task: toDo.task,
-                completed: toDo.completed
+                completed: toDo.completed,
+                category_id: toDo.category_id
             })
             newToDo.save()
                 .then(toDo => {
@@ -30,7 +31,7 @@ module.exports = {
                 task: toDo.task,
                 completed: toDo.completed
             }
-            const newToDo = new ToDo({
+            const newToDo = new Model.ToDo({
                 id: toDo.id
             })
             newToDo.save(attributesToUpdate, {
@@ -44,7 +45,7 @@ module.exports = {
     },
     deleteToDo: (id) => {
         return new Promise((resolve, reject) => {
-            const newToDo = new ToDo({
+            const newToDo = new Model.ToDo({
                 id
             })
             newToDo.destroy()

@@ -10,7 +10,9 @@ class App extends Component {
     super()
     this.state = {
       toDoArr: [],
-      displayOption: 'all'
+      displayOption: 'all',
+      categories: [],
+      categoryOption: null
     }
   }
 
@@ -72,12 +74,35 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
+  selectedCategory = (e) => {
+    this.setState({
+      categoryOption: e.target.value
+    }, () => this.viewToDoByCategory())
+  }
+
+  viewToDoByCategory = () => {
     axios
-      .get(`${baseUrl}/toDos`)
+      .get(`${baseUrl}/${this.state.categoryOption}`)
       .then((response) => {
+        //console.log(response)
         this.setState({
           toDoArr: response.data
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  componentDidMount() {
+    //combining two get requests
+    Promise.all([
+      axios.get(`${baseUrl}/toDos`),
+      axios.get(`${baseUrl}/category`)
+    ])
+      .then(([toDosResponse, categoriesResponse]) => {
+        //console.log(categoriesResponse.data)
+        this.setState({
+          toDoArr: toDosResponse.data,
+          categories: categoriesResponse.data
         })
       })
       .catch((err) => {
@@ -86,6 +111,8 @@ class App extends Component {
   }
 
   render() {
+    //console.log(this.state.categoryOption)
+
     let disableButton = this.state.toDoArr.find((task) => {
       return task.completed
     })
@@ -112,6 +139,13 @@ class App extends Component {
       return acc
     }, {})
 
+    //for drop down menu for filtering of tasks by category
+    const categoryList = this.state.categories.map((category) => {
+      return (
+        <option key={category.id} value={category.id}>{category.category}</option>
+      )
+    })
+
     return (
       <div className='container'>
         <div>
@@ -128,6 +162,14 @@ class App extends Component {
           onClick={this.clearCompleted}
           disabled={disableButton ? false : true}
         >Clear Complete</button>
+
+        <span>
+          <span>Categories:</span>
+          <select onChange={this.selectedCategory}>
+            <option value='0'>All</option>
+            {categoryList}
+          </select>
+        </span>
 
         <span className='counter--block float-right'>
           <span className='counter__type'>All: {this.state.toDoArr.length}</span>

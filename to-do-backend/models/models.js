@@ -1,12 +1,5 @@
 const bookshelf = require ('./bookshelf')
 
-const ToDo = bookshelf.Model.extend({
-    tableName: 'toDos',
-    category: function () {
-        return this.belongsTo(Category)
-    }
-})
-
 const Category = bookshelf.Model.extend({
     tableName: 'categories',
     toDos: function() {
@@ -14,4 +7,10 @@ const Category = bookshelf.Model.extend({
     }
 })
 
-module.exports = ToDo, Category
+const ToDo = bookshelf.Model.extend({
+    tableName: 'toDos',
+    category: function () {
+        return this.belongsTo(Category)
+    }
+})
+module.exports = {ToDo, Category}
