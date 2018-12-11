@@ -16,7 +16,7 @@ module.exports = {
             const newToDo = new Model.ToDo({
                 task: toDo.task,
                 completed: toDo.completed,
-                category_id: toDo.category_id
+                category_id: Number(toDo.categoryOption)
             })
             newToDo.save()
                 .then(toDo => {

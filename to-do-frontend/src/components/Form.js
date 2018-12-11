@@ -5,7 +5,8 @@ class Form extends Component {
     super()
     this.state = {
       task: '',
-      completed: false
+      completed: false,
+      categoryOption: ''
     }
   }
 
@@ -16,10 +17,11 @@ class Form extends Component {
   }
 
   handleSubmit = e => {
-    e.preventDefault()
+    //e.preventDefault() //is preventDefault still necessary? 
     this.props.addToDoList(this.state)
     this.setState({
-      task: ''
+      task: '',
+      categoryOption: ''
     })
   }
 
@@ -32,14 +34,23 @@ class Form extends Component {
               className='btn btn-info'
               type='submit'
               onClick={this.handleSubmit}
-              disabled={this.state.task === '' ? true : false}
+              disabled={(this.state.task === '' || this.state.categoryOption === '') ? true : false}
             >Add</button>
           </span>
           <input id='task'
             className='form-control'
-            placeholder='add a task'
+            placeholder='Add a task'
             onChange={this.handleChange}
             value={this.state.task} />
+            <span>
+              <select id='categoryOption'
+              className='form-control'
+              onChange={this.handleChange}
+              value={this.state.categoryOption}>
+                <option selected value=''>Select a Category</option>
+                {this.props.categoryList}
+              </select>
+            </span>
         </div>
       </form>
     )

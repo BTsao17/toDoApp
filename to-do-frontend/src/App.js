@@ -10,9 +10,9 @@ class App extends Component {
     super()
     this.state = {
       toDoArr: [],
-      displayOption: 'all',
+      displayOption: 'active',
       categories: [],
-      categoryOption: null
+      categoryOption: ''
     }
   }
 
@@ -139,7 +139,7 @@ class App extends Component {
       return acc
     }, {})
 
-    //for drop down menu for filtering of tasks by category
+    //for drop down menu for filtering of tasks by category -> const will need to be changed to "let" when we want to customize categories
     const categoryList = this.state.categories.map((category) => {
       return (
         <option key={category.id} value={category.id}>{category.category}</option>
@@ -152,32 +152,36 @@ class App extends Component {
           <h1 className='text-center h1--block'>To-Do List</h1>
         </div>
 
-        <select onChange={this.selectedView}>
-          <option value='all'>all</option>
-          <option value='active'>active</option>
-          <option value='complete'>complete</option>
-        </select>
-
-        <button className='pull-right btn btn-default'
-          onClick={this.clearCompleted}
-          disabled={disableButton ? false : true}
-        >Clear Complete</button>
-
-        <span>
-          <span>Categories:</span>
-          <select onChange={this.selectedCategory}>
-            <option value='0'>All</option>
-            {categoryList}
+        <div>
+          <select onChange={this.selectedView}>
+            <option value='all'>all</option>
+            <option selected value='active'>active</option>
+            <option value='complete'>complete</option>
           </select>
-        </span>
 
-        <span className='counter--block float-right'>
-          <span className='counter__type'>All: {this.state.toDoArr.length}</span>
-          <span className='counter__type'>Active: {countTask.false}</span>
-          <span className='counter__type'>Complete: {countTask.true}</span>
-        </span>
+          <button className='pull-right btn btn-default'
+            onClick={this.clearCompleted}
+            disabled={disableButton ? false : true}
+          >Clear Complete</button>
 
-        <Form addToDoList={this.addToDoList} />
+          
+            <label>Categories:</label>
+            <select onChange={this.selectedCategory}>
+              <option value='0'>All</option>
+              {categoryList}
+            </select>
+
+            <button> Add Category</button>
+          
+
+          <span className='counter--block float-right'>
+            <span className='counter__type'>All: {this.state.toDoArr.length}</span>
+            <span className='counter__type'>Active: {countTask.false}</span>
+            <span className='counter__type'>Complete: {countTask.true}</span>
+          </span>
+        </div>
+
+        <Form addToDoList={this.addToDoList} categoryList={categoryList} />
 
         <ToDoList splitToDos={splitToDos} changeCompleted={this.changeCompleted} />
 
