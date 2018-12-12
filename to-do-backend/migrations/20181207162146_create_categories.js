@@ -4,7 +4,7 @@ exports.up = function (knex, Promise) {
             if (!exists) {
                 return knex.schema.createTable('categories', function (table) {
                     table.increments('id').primary()
-                    table.string('category').notNullable()
+                    table.string('category').notNullable().unique()
                 })
             }
         })

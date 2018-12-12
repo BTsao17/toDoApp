@@ -12,7 +12,7 @@ class App extends Component {
       toDoArr: [],
       displayOption: 'active',
       categories: [],
-      categoryOption: ''
+      categoryOption: '0'
     }
   }
 
@@ -20,10 +20,25 @@ class App extends Component {
     axios
       .post(`${baseUrl}/toDos`, { toDo })
       .then((response) => {
-        const { toDoArr } = this.state;
+        const { toDoArr } = this.state
         const newtoDoArr = [response.data].concat(toDoArr)
         this.setState({
           toDoArr: newtoDoArr
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  addCategory = (category) => {
+    axios
+      .post(`${baseUrl}/category`, { category })
+      .then((response) => {
+        const { categories } = this.state
+        const newCategories = categories.concat([response.data])
+        this.setState({
+          categories: newCategories
         })
       })
       .catch((err) => {
@@ -70,17 +85,18 @@ class App extends Component {
 
   selectedView = (e) => {
     this.setState({
-      displayOption: e.target.value
+      [e.target.id]: e.target.value
     })
   }
 
-  selectedCategory = (e) => {
-    this.setState({
-      categoryOption: e.target.value
-    }
-      //, () => this.viewToDoByCategory()
-    )
-  }
+  //combined selectedView and selected Category as one function instead
+  // selectedCategory = (e) => {
+  //   this.setState({
+  //     categoryOption: e.target.value
+  //   }
+  //     , () => this.viewToDoByCategory()
+  //   )
+  // }
 
   // viewToDoByCategory = () => {
   //   axios
@@ -95,7 +111,6 @@ class App extends Component {
   // }
 
   componentDidMount() {
-    //combining two get requests
     Promise.all([
       axios.get(`${baseUrl}/toDos`),
       axios.get(`${baseUrl}/category`)
@@ -146,8 +161,19 @@ class App extends Component {
       return acc
     }, {})
 
-    //for drop down menu for filtering of tasks by category -> const will need to be changed to "let" when we want to customize categories
-    const categoryList = this.state.categories.map((category) => {
+    //for drop down menu for filtering of tasks by category
+    const sortCategoryByABC = this.state.categories.sort((a, b) => {
+      let categoryA = a.category.toUpperCase()
+      let categoryB = b.category.toUpperCase()
+      if (categoryA < categoryB) {
+        return -1
+      }
+      if (categoryA > categoryB) {
+        return 1
+      }
+      return 0
+    })
+    const categoryList = sortCategoryByABC.map((category) => {
       return (
         <option key={category.id} value={category.id}>{category.category}</option>
       )
@@ -160,32 +186,37 @@ class App extends Component {
         </div>
 
         <div>
-          <select value={this.state.displayOption} onChange={this.selectedView}>
-            <option value='all'>all</option>
-            <option value='active'>active</option>
-            <option value='complete'>complete</option>
-          </select>
-
-          <button className='pull-right btn btn-default'
-            onClick={this.clearCompleted}
-            disabled={disableButton ? false : true}
-          >Clear All Completed</button>
-
-
-          <label>Categories:</label>
-          <select onChange={this.selectedCategory}>
+          <label htmlFor='categoryOption'>Categories:</label>
+          <select id='categoryOption'
+            value={this.state.categoryOption}
+            onChange={this.selectedView}
+          >
             <option value='0'>All</option>
             {categoryList}
           </select>
+        </div>
 
-          <button> Add Category</button>
+        <AddNewCategory addCategory={this.addCategory} />
 
+        <select id='displayOption'
+          value={this.state.displayOption}
+          onChange={this.selectedView}
+        >
+          <option value='all'>all</option>
+          <option value='active'>active</option>
+          <option value='complete'>complete</option>
+        </select>
 
-          <span className='counter--block float-right'>
-            <span className='counter__type'>All: {this.state.toDoArr.length}</span>
-            <span className='counter__type'>Active: {countTask.false}</span>
-            <span className='counter__type'>Complete: {countTask.true}</span>
-          </span>
+        {/* need to change visibility of 'clear all' button to only show when completed tasks are visible */}
+        <button className='pull-right btn btn-default'
+          onClick={this.clearCompleted}
+          disabled={disableButton ? false : true}
+        >Clear All Completed To-Dos</button>
+
+        <div className='counter--block float-right'>
+          <span className='counter__type'>All: {this.state.toDoArr.length}</span>
+          <span className='counter__type'>Active: {countTask.false}</span>
+          <span className='counter__type'>Completed: {countTask.true}</span>
         </div>
 
         <Form addToDoList={this.addToDoList} categoryList={categoryList} />
@@ -194,6 +225,84 @@ class App extends Component {
           displayOption={this.state.displayOption}
           changeCompleted={this.changeCompleted}
         />
+
+      </div>
+    )
+  }
+}
+
+class AddNewCategory extends Component {
+  constructor() {
+    super()
+    this.state = {
+      newCategory: ''
+    }
+  }
+
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    //e.preventDefault()
+    this.props.addCategory(this.state)
+    this.setState({
+      newCategory: ''
+    })
+  }
+
+  render() {
+
+    return (
+      <div>
+        <button type="button"
+          data-toggle="modal"
+          data-target="#addCategoryForm"
+        > Add Category
+        </button>
+
+        <div className="modal fade"
+          id="addCategoryForm"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLongTitle">Custom Category</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form>
+                <div className="modal-body">
+                  <div className="form-group">
+                    <label htmlFor="newCategory" className="col-form-label">Category Name:</label>
+                    <input type="text"
+                      className="form-control"
+                      id="newCategory"
+                      value={this.state.newCategory}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"
+                    className="btn btn-info"
+                    onClick={this.handleSubmit}
+                    disabled={this.state.newCategory === '' ? true : false}
+                    data-dismiss="modal"
+                  >Add</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 
       </div>
     )

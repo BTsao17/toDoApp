@@ -23,6 +23,21 @@ app.get('/category', (request, response) => {
         .catch(err => console.log(err))
 })
 
+app.post('/category', (request, response) => {
+    const {
+        category
+    } = request.body
+    const newCategory = new Model.Category({
+        category: category.newCategory
+    })
+    newCategory.save()
+        .then(category => {
+            const data = category.attributes
+            response.json(data)
+        })
+        .catch(err => console.log(err))
+})
+
 //this endpoint no longer necessary as I've changed how we can view to-dos by categories
 // app.get('/:categoryID', (request, response) => {
 //     const { categoryID } = request.params 
