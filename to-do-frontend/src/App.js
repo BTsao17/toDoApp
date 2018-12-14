@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, ToDoList } from './components'
+import { Form, ToDoList, AddNewCategory } from './components'
 import axios from 'axios'
 import config from './config/config'
 
@@ -68,15 +68,27 @@ class App extends Component {
   }
 
   clearCompleted = () => {
-    const { toDoArr } = this.state
+    const { toDoArr, categoryOption } = this.state
     let activeTasks = toDoArr.filter((todo) => {
-      if (todo.completed === true) {
-        axios.delete(`${baseUrl}/toDos`, { data: { id: todo.id } })
-          .catch((err) => {
-            console.log(err)
-          })
+      if (categoryOption === '0') {
+        if (todo.completed === true) {
+          axios.delete(`${baseUrl}/toDos`, { data: { id: todo.id } })
+            .catch((err) => {
+              console.log(err)
+            })
+        }
+        return todo.completed === false
+      } else {
+        if (todo.completed === true && Number(categoryOption) === todo.category_id) {
+          axios.delete(`${baseUrl}/toDos`, { data: { id: todo.id } })
+            .catch((err) => {
+              console.log(err)
+            })
+        } else if (todo.completed === true && Number(categoryOption) !== todo.category_id) {
+          return todo.completed === true
+        }
+        return todo.completed === false
       }
-      return todo.completed === false
     })
     this.setState({
       toDoArr: activeTasks
@@ -127,9 +139,9 @@ class App extends Component {
   }
 
   render() {
-    let disableButton = this.state.toDoArr.find((task) => {
-      return task.completed
-    })
+    // let disableButton = this.state.toDoArr.find((task) => {
+    //   return task.completed
+    // })
 
     let viewToDosByCategory = this.state.toDoArr.filter((todo) => {
       if (Number(this.state.categoryOption) === 0) {
@@ -137,6 +149,10 @@ class App extends Component {
       } else {
         return Number(this.state.categoryOption) === todo.category_id
       }
+    })
+
+    let disableButton = viewToDosByCategory.find((task) => {
+      return task.completed
     })
 
     // let viewToDosByStatus = this.state.toDoArr.filter((todo) => {
@@ -151,7 +167,7 @@ class App extends Component {
     //   }
     // })
 
-    let countTask = this.state.toDoArr.reduce((acc, currV) => {
+    let countTask = viewToDosByCategory.reduce((acc, currV) => {
       let key = currV['completed']
       if (typeof acc[key] === 'undefined') {
         acc[key] = 1
@@ -161,7 +177,6 @@ class App extends Component {
       return acc
     }, {})
 
-    //for drop down menu for filtering of tasks by category
     const sortCategoryByABC = this.state.categories.sort((a, b) => {
       let categoryA = a.category.toUpperCase()
       let categoryB = b.category.toUpperCase()
@@ -173,6 +188,7 @@ class App extends Component {
       }
       return 0
     })
+    
     const categoryList = sortCategoryByABC.map((category) => {
       return (
         <option key={category.id} value={category.id}>{category.category}</option>
@@ -207,16 +223,15 @@ class App extends Component {
           <option value='complete'>complete</option>
         </select>
 
-        {/* need to change visibility of 'clear all' button to only show when completed tasks are visible */}
         <button className='pull-right btn btn-default'
           onClick={this.clearCompleted}
           disabled={disableButton ? false : true}
         >Clear All Completed To-Dos</button>
 
         <div className='counter--block float-right'>
-          <span className='counter__type'>All: {this.state.toDoArr.length}</span>
-          <span className='counter__type'>Active: {countTask.false}</span>
-          <span className='counter__type'>Completed: {countTask.true}</span>
+          <span className='counter__type'>All: {viewToDosByCategory.length}</span>
+          <span className='counter__type'>Active: {countTask.false === undefined ? 0 : countTask.false}</span>
+          <span className='counter__type'>Completed: {countTask.true === undefined ? 0 : countTask.true}</span>
         </div>
 
         <Form addToDoList={this.addToDoList} categoryList={categoryList} />
@@ -225,84 +240,6 @@ class App extends Component {
           displayOption={this.state.displayOption}
           changeCompleted={this.changeCompleted}
         />
-
-      </div>
-    )
-  }
-}
-
-class AddNewCategory extends Component {
-  constructor() {
-    super()
-    this.state = {
-      newCategory: ''
-    }
-  }
-
-  handleChange = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
-
-  handleSubmit = (e) => {
-    //e.preventDefault()
-    this.props.addCategory(this.state)
-    this.setState({
-      newCategory: ''
-    })
-  }
-
-  render() {
-
-    return (
-      <div>
-        <button type="button"
-          data-toggle="modal"
-          data-target="#addCategoryForm"
-        > Add Category
-        </button>
-
-        <div className="modal fade"
-          id="addCategoryForm"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">Custom Category</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form>
-                <div className="modal-body">
-                  <div className="form-group">
-                    <label htmlFor="newCategory" className="col-form-label">Category Name:</label>
-                    <input type="text"
-                      className="form-control"
-                      id="newCategory"
-                      value={this.state.newCategory}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit"
-                    className="btn btn-info"
-                    onClick={this.handleSubmit}
-                    disabled={this.state.newCategory === '' ? true : false}
-                    data-dismiss="modal"
-                  >Add</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
 
       </div>
     )
