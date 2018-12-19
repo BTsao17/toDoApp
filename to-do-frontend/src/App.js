@@ -213,7 +213,8 @@ class App extends Component {
         </div>
 
         <AddNewCategory addCategory={this.addCategory} />
-
+      
+        <label htmlFor='displayOption'>Tasks:</label>
         <select id='displayOption'
           value={this.state.displayOption}
           onChange={this.selectedView}
@@ -233,6 +234,7 @@ class App extends Component {
 
         <ToDoList viewToDosByCategory={viewToDosByCategory}
           displayOption={this.state.displayOption}
+          categoryOption={this.state.categoryOption}
           changeCompleted={this.changeCompleted}
         />
 
