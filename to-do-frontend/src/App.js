@@ -188,7 +188,7 @@ class App extends Component {
       }
       return 0
     })
-    
+
     const categoryList = sortCategoryByABC.map((category) => {
       return (
         <option key={category.id} value={category.id}>{category.category}</option>
@@ -223,11 +223,6 @@ class App extends Component {
           <option value='complete'>complete</option>
         </select>
 
-        <button className='pull-right btn btn-default'
-          onClick={this.clearCompleted}
-          disabled={disableButton ? false : true}
-        >Clear All Completed To-Dos</button>
-
         <div className='counter--block float-right'>
           <span className='counter__type'>All: {viewToDosByCategory.length}</span>
           <span className='counter__type'>Active: {countTask.false === undefined ? 0 : countTask.false}</span>
@@ -240,6 +235,11 @@ class App extends Component {
           displayOption={this.state.displayOption}
           changeCompleted={this.changeCompleted}
         />
+
+        <button className='btn btn-info float-right'
+          onClick={this.clearCompleted}
+          disabled={disableButton && (this.state.displayOption === 'complete' || this.state.displayOption === 'all') ? false : true}
+        >Delete All Completed Tasks</button>
 
       </div>
     )
