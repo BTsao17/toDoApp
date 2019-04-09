@@ -1,39 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class AddNewCategory extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      newCategory: ''
-    }
+      newCategory: '',
+    };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
+      [e.target.id]: e.target.value,
+    });
+  };
 
   handleSubmit = (e) => {
     //e.preventDefault()
-    this.props.addCategory(this.state)
+    this.props.addCategory(this.state);
     this.setState({
-      newCategory: ''
-    })
-  }
+      newCategory: '',
+    });
+  };
 
   render() {
-
     return (
       <div>
-        <button
-          type="button"
-          data-toggle="modal"
-          data-target="#addCategoryForm"
-        > Add Category
-          </button>
+        <button type="button" data-toggle="modal" data-target="#addCategoryForm">
+          {' '}
+          Add Category
+        </button>
 
-        <div className="modal fade"
+        <div
+          className="modal fade"
           id="addCategoryForm"
           tabIndex="-1"
           role="dialog"
@@ -43,7 +41,9 @@ class AddNewCategory extends Component {
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">Custom Category</h5>
+                <h5 className="modal-title" id="exampleModalLongTitle">
+                  Custom Category
+                </h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -51,8 +51,11 @@ class AddNewCategory extends Component {
               <form>
                 <div className="modal-body">
                   <div className="form-group">
-                    <label htmlFor="newCategory" className="col-form-label">Category Name:</label>
-                    <input type="text"
+                    <label htmlFor="newCategory" className="col-form-label">
+                      Category Name:
+                    </label>
+                    <input
+                      type="text"
                       className="form-control"
                       id="newCategory"
                       value={this.state.newCategory}
@@ -61,22 +64,26 @@ class AddNewCategory extends Component {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit"
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">
+                    Close
+                  </button>
+                  <button
+                    type="submit"
                     className="btn btn-info"
                     onClick={this.handleSubmit}
                     disabled={this.state.newCategory === '' ? true : false}
                     data-dismiss="modal"
-                  >Add</button>
+                  >
+                    Add
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-
       </div>
-    )
+    );
   }
 }
 
-export default AddNewCategory
+export default AddNewCategory;

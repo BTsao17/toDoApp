@@ -1,4 +1,4 @@
 export default {
-    port: 8080,
-    host: 'localhost'
-}
+  port: 8080,
+  host: 'localhost',
+};
