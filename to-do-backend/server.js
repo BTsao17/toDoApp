@@ -14,28 +14,28 @@ app.use('/toDos', toDoRouter)
 const Model = require('./models/models')
 
 app.get('/category', (request, response) => {
-    Model.Category
-        .fetchAll()
-        .then(categories => {
-            const data = categories.models.map(category => category.attributes)
-            response.json(data)
-        })
-        .catch(err => console.log(err))
+  Model.Category
+    .fetchAll()
+    .then(categories => {
+      const data = categories.models.map(category => category.attributes)
+      response.json(data)
+    })
+    .catch(err => console.log(err))
 })
 
 app.post('/category', (request, response) => {
-    const {
-        category
-    } = request.body
-    const newCategory = new Model.Category({
-        category: category.newCategory
+  const {
+    category
+  } = request.body
+  const newCategory = new Model.Category({
+    category: category.newCategory
+  })
+  newCategory.save()
+    .then(category => {
+      const data = category.attributes
+      response.json(data)
     })
-    newCategory.save()
-        .then(category => {
-            const data = category.attributes
-            response.json(data)
-        })
-        .catch(err => console.log(err))
+    .catch(err => console.log(err))
 })
 
 //this endpoint no longer necessary as I've changed how we can view to-dos by categories
@@ -62,5 +62,5 @@ app.post('/category', (request, response) => {
 // })
 
 app.listen(port, () => {
-    console.log(`listening at ${port}`)
+  console.log(`listening at ${port}`)
 })
