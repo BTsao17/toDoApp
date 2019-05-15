@@ -3,6 +3,8 @@ import { Form, ToDoList, AddNewCategory } from './components';
 import axios from 'axios';
 import config from './config/config';
 
+import Container from 'react-bootstrap/Container';
+
 const baseUrl = `http://${config.host}:${config.port}`;
 
 class App extends Component {
@@ -196,7 +198,7 @@ class App extends Component {
     });
 
     return (
-      <div className="container">
+      <Container>
         <div>
           <h1 className="text-center h1--block">To-Do List</h1>
         </div>
@@ -211,12 +213,14 @@ class App extends Component {
 
         <AddNewCategory addCategory={this.addCategory} />
 
-        <label htmlFor="displayOption">Tasks:</label>
-        <select id="displayOption" value={this.state.displayOption} onChange={this.selectedView}>
-          <option value="all">all</option>
-          <option value="active">active</option>
-          <option value="complete">complete</option>
-        </select>
+        <div>
+          <label htmlFor="displayOption">Tasks:</label>
+          <select id="displayOption" value={this.state.displayOption} onChange={this.selectedView}>
+            <option value="all">all</option>
+            <option value="active">active</option>
+            <option value="complete">complete</option>
+          </select>
+        </div>
 
         <div className="counter--block float-right">
           <span className="counter__type">All: {viewToDosByCategory.length}</span>
@@ -246,7 +250,7 @@ class App extends Component {
         >
           Delete All Completed Tasks
         </button>
-      </div>
+      </Container>
     );
   }
 }

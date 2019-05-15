@@ -1,9 +1,5 @@
-.done {
-  text-decoration: line-through;
-  color: grey;
-}
-
-.body--background{
+/* styles for the whole app, referenced in index.html */
+.body--background {
   background-image: url('images/leaves.png');
 }
 
@@ -11,11 +7,13 @@
   font-family: 'Handlee', cursive;
 }
 
+
+/* styles for all components */
 .h1--block {
   margin-top: 2rem;
   padding: 1rem;
   border: 2px dotted lightgray;
-  background-color: rgb(221, 250, 216)
+  background-color: rgb(221, 250, 216);
 }
 
 .counter--block {
@@ -25,4 +23,9 @@
 
 .counter__type {
   margin: 1rem;
+}
+
+.done {
+  text-decoration: line-through;
+  color: grey;
 }

@@ -1,87 +1,86 @@
 import React, { Component } from 'react';
 
+import Modal from 'react-bootstrap/Modal';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 class AddNewCategory extends Component {
+  constructor() {
+    super();
+    this.state = {
+      modalShow: false,
+    };
+  }
+
+  modalClose = () => {
+    this.setState({
+      modalShow: false,
+    });
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <ButtonToolbar>
+          <Button variant="info" onClick={() => this.setState({ modalShow: true })}>
+            Add Category
+          </Button>
+
+          <AddCategoryModal show={this.state.modalShow} onHide={this.modalClose} addCategory={this.props.addCategory} />
+        </ButtonToolbar>
+      </React.Fragment>
+    );
+  }
+}
+
+class AddCategoryModal extends Component {
   constructor() {
     super();
     this.state = {
       newCategory: '',
     };
   }
-
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
     });
   };
-
   handleSubmit = (e) => {
-    //e.preventDefault()
     this.props.addCategory(this.state);
     this.setState({
       newCategory: '',
     });
+    this.props.onHide()
   };
-
   render() {
     return (
-      <div>
-        <button type="button" data-toggle="modal" data-target="#addCategoryForm">
-          {' '}
-          Add Category
-        </button>
-
-        <div
-          className="modal fade"
-          id="addCategoryForm"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">
-                  Custom Category
-                </h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form>
-                <div className="modal-body">
-                  <div className="form-group">
-                    <label htmlFor="newCategory" className="col-form-label">
-                      Category Name:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="newCategory"
-                      value={this.state.newCategory}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                    Close
-                  </button>
-                  <button
-                    type="submit"
-                    className="btn btn-info"
-                    onClick={this.handleSubmit}
-                    disabled={this.state.newCategory === '' ? true : false}
-                    data-dismiss="modal"
-                  >
-                    Add
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal {...this.props} size="lg" centered>
+        <Modal.Header>
+          <Modal.Title>Custom Category</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Category Name:</Form.Label>
+              <Form.Control id="newCategory" type="text" value={this.state.newCategory} onChange={this.handleChange} />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.onHide}>
+            Close
+          </Button>
+          <Button
+            type="submit"
+            variant="info"
+            onClick={this.handleSubmit}
+            disabled={this.state.newCategory === '' ? true : false}
+          >
+            Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
