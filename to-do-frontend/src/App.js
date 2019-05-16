@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, ToDoList, AddNewCategory } from './components';
+import { AddToDoForm, ToDoList, AddNewCategory } from './components';
 import axios from 'axios';
 import config from './config/config';
 
@@ -228,7 +228,7 @@ class App extends Component {
           <span className="counter__type">Completed: {countTask.true === undefined ? 0 : countTask.true}</span>
         </div>
 
-        <Form addToDoList={this.addToDoList} categoryList={categoryList} />
+        <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
 
         <ToDoList
           viewToDosByCategory={viewToDosByCategory}
