@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from './config/config';
 
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 
 const baseUrl = `http://${config.host}:${config.port}`;
 
@@ -102,15 +103,6 @@ class App extends Component {
     });
   };
 
-  //combined selectedView and selected Category as one function instead
-  // selectedCategory = (e) => {
-  //   this.setState({
-  //     categoryOption: e.target.value
-  //   }
-  //     , () => this.viewToDoByCategory()
-  //   )
-  // }
-
   // viewToDoByCategory = () => {
   //   axios
   //     .get(`${baseUrl}/${this.state.categoryOption}`)
@@ -199,33 +191,48 @@ class App extends Component {
 
     return (
       <Container>
-        <div>
-          <h1 className="text-center h1--block">To-Do List</h1>
-        </div>
+        <h1 className="text-center title">To-Do List</h1>
 
-        <div>
+        {/* <div>
           <label htmlFor="categoryOption">Categories:</label>
           <select id="categoryOption" value={this.state.categoryOption} onChange={this.selectedView}>
             <option value="0">All</option>
             {categoryList}
           </select>
+        </div> */}
+
+        <div>
+          <Form.Label>Categories:</Form.Label>
+          <Form.Control as="select" id="categoryOption" value={this.state.categoryOption} onChange={this.selectedView}>
+            <option value="0">All</option>
+            {categoryList}
+          </Form.Control>
         </div>
 
         <AddNewCategory addCategory={this.addCategory} />
 
-        <div>
+        {/* <div>
           <label htmlFor="displayOption">Tasks:</label>
           <select id="displayOption" value={this.state.displayOption} onChange={this.selectedView}>
             <option value="all">all</option>
             <option value="active">active</option>
             <option value="complete">complete</option>
           </select>
+        </div> */}
+
+        <div>
+          <Form.Label>Tasks:</Form.Label>
+          <Form.Control as="select" id="displayOption" value={this.state.displayOption} onChange={this.selectedView}>
+            <option value="all">all</option>
+            <option value="active">active</option>
+            <option value="complete">complete</option>
+          </Form.Control>
         </div>
 
-        <div className="counter--block float-right">
-          <span className="counter__type">All: {viewToDosByCategory.length}</span>
-          <span className="counter__type">Active: {countTask.false === undefined ? 0 : countTask.false}</span>
-          <span className="counter__type">Completed: {countTask.true === undefined ? 0 : countTask.true}</span>
+        <div className="toDoCounter">
+          <div>All: {viewToDosByCategory.length}</div>
+          <div>Active: {countTask.false === undefined ? 0 : countTask.false}</div>
+          <div>Completed: {countTask.true === undefined ? 0 : countTask.true}</div>
         </div>
 
         <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ToDo } from './';
 
+import ListGroup from 'react-bootstrap/ListGroup';
+
 class ToDoList extends Component {
   render() {
     let viewToDosByStatus = this.props.viewToDosByCategory.filter((todo) => {
@@ -64,7 +66,8 @@ class ToDoList extends Component {
     //console.log(conditionalSortingRendering)
     // console.log(sortByCategory)
 
-    return <ul className="list-group">{list}</ul>;
+    return <ListGroup>{list}</ListGroup>
+    // <ul className="list-group">{list}</ul>;
   }
 }
 
