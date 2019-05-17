@@ -5,6 +5,7 @@ import config from './config/config';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const baseUrl = `http://${config.host}:${config.port}`;
 
@@ -193,46 +194,44 @@ class App extends Component {
       <Container>
         <h1 className="text-center title">To-Do List</h1>
 
-        {/* <div>
-          <label htmlFor="categoryOption">Categories:</label>
-          <select id="categoryOption" value={this.state.categoryOption} onChange={this.selectedView}>
-            <option value="0">All</option>
-            {categoryList}
-          </select>
-        </div> */}
-
-        <div>
-          <Form.Label>Categories:</Form.Label>
-          <Form.Control as="select" id="categoryOption" value={this.state.categoryOption} onChange={this.selectedView}>
-            <option value="0">All</option>
-            {categoryList}
-          </Form.Control>
+        <div className="categoryInfo">
+          <div className="categoryChoices">
+            <Form.Label className="categoryChoices-label">Categories:</Form.Label>
+            <Form.Control
+              as="select"
+              id="categoryOption"
+              className="categoryChoices-options"
+              value={this.state.categoryOption}
+              onChange={this.selectedView}
+            >
+              <option value="0">All</option>
+              {categoryList}
+            </Form.Control>
+          </div>
+          <AddNewCategory addCategory={this.addCategory} />
         </div>
 
-        <AddNewCategory addCategory={this.addCategory} />
+        <div className="tasksInfo">
+          <div className="tasksStatus">
+            <Form.Label className="tasksStatus-label">Tasks:</Form.Label>
+            <Form.Control
+              as="select"
+              id="displayOption"
+              className="tasksStatus-options"
+              value={this.state.displayOption}
+              onChange={this.selectedView}
+            >
+              <option value="all">all</option>
+              <option value="active">active</option>
+              <option value="complete">complete</option>
+            </Form.Control>
+          </div>
 
-        {/* <div>
-          <label htmlFor="displayOption">Tasks:</label>
-          <select id="displayOption" value={this.state.displayOption} onChange={this.selectedView}>
-            <option value="all">all</option>
-            <option value="active">active</option>
-            <option value="complete">complete</option>
-          </select>
-        </div> */}
-
-        <div>
-          <Form.Label>Tasks:</Form.Label>
-          <Form.Control as="select" id="displayOption" value={this.state.displayOption} onChange={this.selectedView}>
-            <option value="all">all</option>
-            <option value="active">active</option>
-            <option value="complete">complete</option>
-          </Form.Control>
-        </div>
-
-        <div className="toDoCounter">
-          <div>All: {viewToDosByCategory.length}</div>
-          <div>Active: {countTask.false === undefined ? 0 : countTask.false}</div>
-          <div>Completed: {countTask.true === undefined ? 0 : countTask.true}</div>
+          <div className="toDoCounter">
+            <div className="counterType">All: {viewToDosByCategory.length}</div>
+            <div className="counterType">Active: {countTask.false === undefined ? 0 : countTask.false}</div>
+            <div className="counterType">Completed: {countTask.true === undefined ? 0 : countTask.true}</div>
+          </div>
         </div>
 
         <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
@@ -244,8 +243,8 @@ class App extends Component {
           changeCompleted={this.changeCompleted}
         />
 
-        <button
-          className="btn btn-info float-right"
+        <Button
+          variant="info"
           onClick={this.clearCompleted}
           disabled={
             disableButton && (this.state.displayOption === 'complete' || this.state.displayOption === 'all') ? (
@@ -256,7 +255,7 @@ class App extends Component {
           }
         >
           Delete All Completed Tasks
-        </button>
+        </Button>
       </Container>
     );
   }

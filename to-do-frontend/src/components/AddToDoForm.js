@@ -30,22 +30,22 @@ class AddToDoForm extends Component {
 
   render() {
     return (
-        <Form>
-          <Form.Control id="task" placeholder="Add a task" onChange={this.handleChange} value={this.state.task} />
-          <Form.Control id="categoryOption" as="select" onChange={this.handleChange} value={this.state.categoryOption}>
-            <option value="">Select a Category</option>
-            {this.props.categoryList}
-          </Form.Control>
-          <Button
-            variant="info"
-            type="submit"
-            onClick={this.handleSubmit}
-            disabled={this.state.task === '' || this.state.categoryOption === '' ? true : false}
-            //block
-          >
-            Add
-          </Button>
-        </Form>
+      <Form className="newTaskForm">
+        <Form.Control id="task" placeholder="New task" onChange={this.handleChange} value={this.state.task} />
+        <Form.Control id="categoryOption" as="select" onChange={this.handleChange} value={this.state.categoryOption}>
+          <option value="">Select a Category</option>
+          {this.props.categoryList}
+        </Form.Control>
+        <Button
+          className="addTaskBut"
+          variant="info"
+          type="submit"
+          onClick={this.handleSubmit}
+          disabled={this.state.task === '' || this.state.categoryOption === '' ? true : false}
+        >
+          Add Task
+        </Button>
+      </Form>
     );
   }
 }

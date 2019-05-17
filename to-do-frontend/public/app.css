@@ -20,3 +20,53 @@
   text-decoration: line-through;
   color: grey;
 }
+
+/* not sure if I need Grid yet, but just in case */
+#root .container {
+  display: grid;
+  padding-bottom: 32px;
+}
+
+.categoryChoices, .tasksStatus, .toDoCounter {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin: 10px 0px;
+}
+
+.counterType {
+  display: flex;
+  justify-content: center;
+  padding: 0px 5px;
+}
+
+.categoryChoices-label, .tasksStatus-label {
+  margin-right: 10px;
+}
+
+/* .categoryChoices-options, .tasksStatus-options {
+flex: 0 0 25%; for bigger screen size, need to limit flex-grow
+  
+} */
+
+/* .tasksList {
+  display:flex;
+} */
+
+.tasksList-item {
+  display:flex; 
+  align-items:baseline;
+}
+
+.tasksList-item label {
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+
+.newTaskForm{
+  margin: 5px 0 15px 0px;
+}
+
+.addCategoryBut, .addTaskBut{
+  width: 100%;
+}

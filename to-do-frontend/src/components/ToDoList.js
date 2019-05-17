@@ -66,7 +66,7 @@ class ToDoList extends Component {
     //console.log(conditionalSortingRendering)
     // console.log(sortByCategory)
 
-    return <ListGroup>{list}</ListGroup>
+    return <ListGroup className="tasksList">{list}</ListGroup>
     // <ul className="list-group">{list}</ul>;
   }
 }

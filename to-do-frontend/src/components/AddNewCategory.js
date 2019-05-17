@@ -21,15 +21,13 @@ class AddNewCategory extends Component {
 
   render() {
     return (
-      <React.Fragment>
         <ButtonToolbar>
-          <Button variant="info" onClick={() => this.setState({ modalShow: true })}>
-            Add Category
+          <Button className = "addCategoryBut" variant="info" onClick={() => this.setState({ modalShow: true })}>
+            Add New Category
           </Button>
 
           <AddCategoryModal show={this.state.modalShow} onHide={this.modalClose} addCategory={this.props.addCategory} />
         </ButtonToolbar>
-      </React.Fragment>
     );
   }
 }

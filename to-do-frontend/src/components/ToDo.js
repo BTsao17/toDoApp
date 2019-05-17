@@ -9,7 +9,7 @@ class ToDo extends Component {
 
   render() {
     return (
-      <ListGroup.Item>
+      <ListGroup.Item className="tasksList-item">
       <input
         type="checkbox"
         value={this.props.id}
