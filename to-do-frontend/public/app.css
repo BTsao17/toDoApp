@@ -7,7 +7,6 @@
   font-family: 'Handlee', cursive;
 }
 
-
 /* styles for all components */
 .title {
   margin-top: 2rem;
@@ -27,7 +26,9 @@
   padding-bottom: 32px;
 }
 
-.categoryChoices, .tasksStatus, .toDoCounter {
+.categoryChoices,
+.tasksStatus,
+.toDoCounter {
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -40,22 +41,14 @@
   padding: 0px 5px;
 }
 
-.categoryChoices-label, .tasksStatus-label {
+.categoryChoices-label,
+.tasksStatus-label {
   margin-right: 10px;
 }
 
-/* .categoryChoices-options, .tasksStatus-options {
-flex: 0 0 25%; for bigger screen size, need to limit flex-grow
-  
-} */
-
-/* .tasksList {
-  display:flex;
-} */
-
 .tasksList-item {
-  display:flex; 
-  align-items:baseline;
+  display: flex;
+  align-items: baseline;
 }
 
 .tasksList-item label {
@@ -63,10 +56,40 @@ flex: 0 0 25%; for bigger screen size, need to limit flex-grow
   margin-left: 10px;
 }
 
-.newTaskForm{
+.newTaskForm {
   margin: 5px 0 15px 0px;
 }
 
-.addCategoryBut, .addTaskBut{
+.addCategoryBut,
+.addTaskBut {
   width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .categoryInfo,
+  .tasksInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .categoryChoices {
+    width: 65%;
+  }
+
+  .btn-toolbar.addCategory {
+    width: 30%;
+    align-items: center;
+  }
+
+  .tasksStatus {
+    width: 50%;
+  }
+
+  .counterType {
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 1024px){
+
 }

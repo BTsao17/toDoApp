@@ -21,13 +21,13 @@ class AddNewCategory extends Component {
 
   render() {
     return (
-        <ButtonToolbar>
-          <Button className = "addCategoryBut" variant="info" onClick={() => this.setState({ modalShow: true })}>
-            Add New Category
-          </Button>
+      <ButtonToolbar className="addCategory">
+        <Button className="addCategoryBut" variant="info" onClick={() => this.setState({ modalShow: true })}>
+          Add New Category
+        </Button>
 
-          <AddCategoryModal show={this.state.modalShow} onHide={this.modalClose} addCategory={this.props.addCategory} />
-        </ButtonToolbar>
+        <AddCategoryModal show={this.state.modalShow} onHide={this.modalClose} addCategory={this.props.addCategory} />
+      </ButtonToolbar>
     );
   }
 }
@@ -49,7 +49,7 @@ class AddCategoryModal extends Component {
     this.setState({
       newCategory: '',
     });
-    this.props.onHide()
+    this.props.onHide();
   };
   render() {
     return (
