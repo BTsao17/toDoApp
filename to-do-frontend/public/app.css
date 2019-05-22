@@ -90,6 +90,20 @@
   }
 }
 
-@media screen and (min-width: 1024px){
+@media screen and (min-width: 1024px) {
+  .newTaskForm {
+    display: flex;
+  }
 
+  .newTaskForm > input {
+    flex: 1 0 55%;
+  }
+
+  .newTaskForm > select {
+    flex: 1 0 30%;
+  }
+
+  .addTaskBut {
+    width: 15%;
+  }
 }
