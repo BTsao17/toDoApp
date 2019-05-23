@@ -1,0 +1,109 @@
+$font-stack: 'Handlee', cursive;
+
+.body--background {
+  background-image: url('images/leaves.png');
+}
+
+.body--font {
+  font-family: $font-stack;
+}
+
+#root .container {
+  display: grid;
+  padding-bottom: 32px;
+}
+
+.title {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 2px dotted lightgray;
+  background-color: rgb(221, 250, 216);
+}
+
+.done {
+  text-decoration: line-through;
+  color: grey;
+}
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.categoryChoices,
+.tasksStatus,
+.toDoCounter {
+  @extend %flex-center;
+  align-items: baseline;
+  margin: 10px 0px;
+}
+
+.counterType {
+  @extend %flex-center;
+  padding: 0px 5px;
+}
+
+.categoryChoices-label,
+.tasksStatus-label {
+  margin-right: 10px;
+}
+
+.tasksList-item {
+  display: flex;
+  align-items: baseline;
+  > label {
+    margin: 0px 0px 0px 10px;
+  }
+}
+
+.newTaskForm {
+  margin: 5px 0px 15px 0px;
+}
+
+.addCategoryBut,
+.addTaskBut {
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .categoryInfo,
+  .tasksInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .categoryChoices {
+    width: 65%;
+  }
+
+  .btn-toolbar.addCategory {
+    width: 30%;
+    align-items: center;
+  }
+
+  .tasksStatus {
+    width: 50%;
+  }
+
+  .counterType {
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .newTaskForm {
+    display: flex;
+
+    > input {
+      flex: 1 0 55%;
+    }
+
+    > select {
+      flex: 1 0 30%;
+    }
+  }
+
+  .addTaskBut {
+    width: 15%;
+  }
+}

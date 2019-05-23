@@ -1,18 +1,22 @@
-/* styles for the whole app, referenced in index.html */
 .body--background {
-  background-image: url('images/leaves.png');
+  background-image: url("images/leaves.png");
 }
 
 .body--font {
-  font-family: 'Handlee', cursive;
+  font-family: "Handlee", cursive;
 }
 
-/* styles for all components */
+#root .container {
+  display: -ms-grid;
+  display: grid;
+  padding-bottom: 32px;
+}
+
 .title {
   margin-top: 2rem;
   padding: 1rem;
   border: 2px dotted lightgray;
-  background-color: rgb(221, 250, 216);
+  background-color: #ddfad8;
 }
 
 .done {
@@ -20,24 +24,27 @@
   color: grey;
 }
 
-/* not sure if I need Grid yet, but just in case */
-#root .container {
-  display: grid;
-  padding-bottom: 32px;
+.categoryChoices,
+.tasksStatus,
+.toDoCounter, .counterType {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .categoryChoices,
 .tasksStatus,
 .toDoCounter {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
   margin: 10px 0px;
 }
 
 .counterType {
-  display: flex;
-  justify-content: center;
   padding: 0px 5px;
 }
 
@@ -47,17 +54,20 @@
 }
 
 .tasksList-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: baseline;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
 }
 
-.tasksList-item label {
-  margin-bottom: 0;
-  margin-left: 10px;
+.tasksList-item > label {
+  margin: 0px 0px 0px 10px;
 }
 
 .newTaskForm {
-  margin: 5px 0 15px 0px;
+  margin: 5px 0px 15px 0px;
 }
 
 .addCategoryBut,
@@ -68,42 +78,50 @@
 @media screen and (min-width: 600px) {
   .categoryInfo,
   .tasksInfo {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
-
   .categoryChoices {
     width: 65%;
   }
-
   .btn-toolbar.addCategory {
     width: 30%;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
-
   .tasksStatus {
     width: 50%;
   }
-
   .counterType {
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .newTaskForm {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
   }
-
   .newTaskForm > input {
-    flex: 1 0 55%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 55%;
+            flex: 1 0 55%;
   }
-
   .newTaskForm > select {
-    flex: 1 0 30%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 30%;
+            flex: 1 0 30%;
   }
-
   .addTaskBut {
     width: 15%;
   }
 }
+/*# sourceMappingURL=app.css.map */
