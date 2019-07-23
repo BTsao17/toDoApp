@@ -58,7 +58,7 @@ class App extends Component {
         else {
           toDo.completed = false;
         }
-        axios.put(`${baseUrl}/toDos`, { toDo }).catch((err) => {
+        axios.put(`/toDos`, { toDo }).catch((err) => {
           console.log(err);
         });
       }
@@ -73,7 +73,7 @@ class App extends Component {
     let activeTasks = toDoArr.filter((todo) => {
       if (categoryOption === '0') {
         if (todo.completed === true) {
-          axios.delete(`${baseUrl}/toDos`, { data: { id: todo.id } }).catch((err) => {
+          axios.delete(`/toDos`, { data: { id: todo.id } }).catch((err) => {
             console.log(err);
           });
         }
@@ -81,7 +81,7 @@ class App extends Component {
       }
       else {
         if (todo.completed === true && Number(categoryOption) === todo.category_id) {
-          axios.delete(`${baseUrl}/toDos`, { data: { id: todo.id } }).catch((err) => {
+          axios.delete(`/toDos`, { data: { id: todo.id } }).catch((err) => {
             console.log(err);
           });
         }
