@@ -7,8 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const baseUrl = `http://${config.host}:${config.port}`;
-
 class App extends Component {
   constructor() {
     super();
@@ -22,7 +20,7 @@ class App extends Component {
 
   addToDoList = (toDo) => {
     axios
-      .post(`${baseUrl}/toDos`, { toDo })
+      .post(`/toDos`, { toDo })
       .then((response) => {
         const { toDoArr } = this.state;
         const newtoDoArr = [ response.data ].concat(toDoArr);
@@ -37,7 +35,7 @@ class App extends Component {
 
   addCategory = (category) => {
     axios
-      .post(`${baseUrl}/category`, { category })
+      .post(`/category`, { category })
       .then((response) => {
         const { categories } = this.state;
         const newCategories = categories.concat([ response.data ]);
@@ -117,7 +115,7 @@ class App extends Component {
   // }
 
   componentDidMount() {
-    Promise.all([ axios.get(`${baseUrl}/toDos`), axios.get(`${baseUrl}/category`) ])
+    Promise.all([ axios.get(`/toDos`), axios.get(`/category`) ])
       .then(([ toDosResponse, categoriesResponse ]) => {
         this.setState({
           toDoArr: toDosResponse.data,
