@@ -2,14 +2,16 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const port = process.env.PORT || process.argv[2] || 8080
-
+const path = require('path')
 const toDoRouter = require('./routes/toDos')
+const Model = require('./models/models')
 
 app.use(bodyParser.json())
 app.use('/toDos', toDoRouter)
 
-//testing
-const Model = require('./models/models')
+//static file declaration
+app.use(express.static(path.join(__dirname, 'client/build')))
+
 
 app.get('/category', (request, response) => {
   Model.Category
@@ -59,6 +61,18 @@ app.post('/category', (request, response) => {
 //     }
 // })
 
+//production mode
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'))
+  })
+}
+//build mode
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/public/index.html'))
+})
+
 app.listen(port, () => {
-  console.log(`listening at ${port}`)
+  console.log(`server listening at ${port}`)
 })
