@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AddToDoForm, ToDoList, AddNewCategory } from './components';
 import axios from 'axios';
-import config from './config/config'; //used for baseURL for endpoints - no longer necessary since using proxy
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
