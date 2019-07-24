@@ -7,7 +7,7 @@ module.exports = {
     client: 'pg',
     connection:
       process.env.DATABASE_URL ||
-      'postgres://hccjiigdhdxfln:2a99b7e11bbeaa500718f01e6831c93c7d5138c59f5da59f8afda5f07453807e@ec2-174-129-227-51.compute-1.amazonaws.com:5432/d9o5agt10h4a5t',
+      'postgres://vsbvoiwjnzicma:13c3108ade4c484367cd2d10495a55eb963f85b6b5a9f9883b7542199148ba39@ec2-54-227-251-33.compute-1.amazonaws.com:5432/d8jgplu1r591c6',
   },
 
   // client: 'pg',
