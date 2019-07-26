@@ -58,6 +58,10 @@ $font-stack: 'Handlee', cursive;
 
 .newTaskForm {
   margin: 5px 0px 15px 0px;
+
+  .addTask {
+    margin-bottom: 1rem;
+  }
 }
 
 .addCategoryBut,
@@ -100,6 +104,11 @@ $font-stack: 'Handlee', cursive;
 
     > select {
       flex: 1 0 30%;
+    }
+
+    .addTask {
+      margin-right: 1rem;
+      margin-bottom: 0;
     }
   }
 

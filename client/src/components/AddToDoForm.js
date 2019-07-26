@@ -31,8 +31,8 @@ class AddToDoForm extends Component {
   render() {
     return (
       <Form className="newTaskForm">
-        <Form.Control id="task" placeholder="New task" onChange={this.handleChange} value={this.state.task} />
-        <Form.Control id="categoryOption" as="select" onChange={this.handleChange} value={this.state.categoryOption}>
+        <Form.Control id="task" className="addTask" placeholder="New task" onChange={this.handleChange} value={this.state.task} />
+        <Form.Control id="categoryOption" className="addTask" as="select" onChange={this.handleChange} value={this.state.categoryOption}>
           <option value="">Select a Category</option>
           {this.props.categoryList}
         </Form.Control>
