@@ -127,10 +127,8 @@ class App extends Component {
   }
 
   render() {
-    // let disableButton = this.state.toDoArr.find((task) => {
-    //   return task.completed
-    // })
-
+    const {displayOption} = this.state
+    
     let viewToDosByCategory = this.state.toDoArr.filter((todo) => {
       if (Number(this.state.categoryOption) === 0) {
         return todo;
@@ -140,7 +138,7 @@ class App extends Component {
       }
     });
 
-    let disableButton = viewToDosByCategory.find((task) => {
+    let showDelBut = viewToDosByCategory.find((task) => {
       return task.completed;
     });
 
@@ -191,6 +189,8 @@ class App extends Component {
       <Container>
         <h1 className="text-center title">To-Do List</h1>
 
+        <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
+
         <div className="categoryInfo">
           <div className="categoryChoices">
             <Form.Label className="categoryChoices-label">Categories:</Form.Label>
@@ -231,8 +231,6 @@ class App extends Component {
           </div>
         </div>
 
-        <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
-
         <ToDoList
           viewToDosByCategory={viewToDosByCategory}
           displayOption={this.state.displayOption}
@@ -240,19 +238,14 @@ class App extends Component {
           changeCompleted={this.changeCompleted}
         />
 
-        <Button
+        {displayOption !== "active" && showDelBut && (<Button
           variant="info"
           onClick={this.clearCompleted}
-          disabled={
-            disableButton && (this.state.displayOption === 'complete' || this.state.displayOption === 'all') ? (
-              false
-            ) : (
-              true
-            )
-          }
         >
           Delete All Completed Tasks
         </Button>
+        )}
+
       </Container>
     );
   }
