@@ -24,9 +24,8 @@
   color: grey;
 }
 
-.categoryChoices,
-.tasksStatus,
-.toDoCounter, .counterType {
+.toDoCounter, .toDoCounter .counterType, .catFilter,
+.taskFilter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,25 +34,48 @@
           justify-content: center;
 }
 
-.categoryChoices,
-.tasksStatus,
 .toDoCounter {
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.toDoCounter .counterType {
+  padding: 0px 8px;
+}
+
+.filters .filterList.filterList-padding {
+  padding: 1rem;
+}
+
+.accordion .card:first-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.accordion .card:last-of-type {
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+
+.catFilter,
+.taskFilter {
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
-  margin: 10px 0px;
+  margin: 1rem 0rem;
 }
 
-.counterType {
-  padding: 0px 5px;
-}
-
-.categoryChoices-label,
-.tasksStatus-label {
+.catFilter-label,
+.taskFilter-label {
   margin-right: 10px;
 }
 
-.tasksList-item {
+.tasksList {
+  margin-top: 1rem;
+}
+
+.tasksList .tasksList-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,16 +84,23 @@
           align-items: baseline;
 }
 
-.tasksList-item > label {
+.tasksList .tasksList-item > label {
   margin: 0px 0px 0px 10px;
 }
 
 .newTaskForm {
-  margin: 5px 0px 15px 0px;
+  margin: 10px 0px;
 }
 
 .newTaskForm .addTask {
   margin-bottom: 1rem;
+}
+
+.otherInfo {
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  margin: 0.5rem 0rem 1rem 0rem;
 }
 
 .addCategoryBut,
@@ -80,7 +109,8 @@
 }
 
 @media screen and (min-width: 600px) {
-  .categoryInfo,
+  .otherInfo,
+  .filterList,
   .tasksInfo {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -89,22 +119,24 @@
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
-  .categoryChoices {
-    width: 65%;
-  }
   .btn-toolbar.addCategory {
-    width: 30%;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-  .tasksStatus {
-    width: 50%;
+    width: 40%;
   }
   .counterType {
     -ms-flex-item-align: center;
         -ms-grid-row-align: center;
         align-self: center;
+  }
+  .catFilter {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 50%;
+            flex: 1 0 50%;
+    margin-right: 2rem;
+  }
+  .taskFilter {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 40%;
+            flex: 1 0 40%;
   }
 }
 
@@ -130,6 +162,9 @@
   }
   .addTaskBut {
     width: 15%;
+  }
+  .btn-toolbar.addCategory {
+    width: 25%;
   }
 }
 /*# sourceMappingURL=app.css.map */

@@ -30,38 +30,71 @@ $font-stack: 'Handlee', cursive;
   justify-content: center;
 }
 
-.categoryChoices,
-.tasksStatus,
 .toDoCounter {
   @extend %flex-center;
-  align-items: baseline;
-  margin: 10px 0px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+
+  .counterType {
+    @extend %flex-center;
+    padding: 0px 8px;
+  }
 }
 
-.counterType {
+.filters {
+  .filterList.filterList-padding {
+    padding: 1rem;
+  }
+}
+
+.accordion {
+  .card:first-of-type {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .card:last-of-type {
+    border-top-right-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+  }
+  }
+
+.catFilter,
+.taskFilter {
   @extend %flex-center;
-  padding: 0px 5px;
+  align-items: baseline;
+  margin: 1rem 0rem;
 }
 
-.categoryChoices-label,
-.tasksStatus-label {
+.catFilter-label,
+.taskFilter-label {
   margin-right: 10px;
 }
 
-.tasksList-item {
-  display: flex;
-  align-items: baseline;
-  > label {
-    margin: 0px 0px 0px 10px;
+.tasksList {
+  margin-top: 1rem;
+
+  .tasksList-item {
+    display: flex;
+    align-items: baseline;
+    > label {
+      margin: 0px 0px 0px 10px;
+    }
   }
 }
 
 .newTaskForm {
-  margin: 5px 0px 15px 0px;
+  margin: 10px 0px;
 
   .addTask {
     margin-bottom: 1rem;
   }
+}
+
+.otherInfo {
+  align-items: baseline;
+  margin: 0.5rem 0rem 1rem 0rem;
 }
 
 .addCategoryBut,
@@ -70,27 +103,28 @@ $font-stack: 'Handlee', cursive;
 }
 
 @media screen and (min-width: 600px) {
-  .categoryInfo,
+  .otherInfo,
+  .filterList,
   .tasksInfo {
     display: flex;
     justify-content: space-between;
   }
 
-  .categoryChoices {
-    width: 65%;
-  }
-
   .btn-toolbar.addCategory {
-    width: 30%;
-    align-items: center;
-  }
-
-  .tasksStatus {
-    width: 50%;
+    width: 40%;
   }
 
   .counterType {
     align-self: center;
+  }
+
+  .catFilter {
+    flex: 1 0 50%;
+    margin-right: 2rem;
+  }
+
+  .taskFilter {
+    flex: 1 0 40%;
   }
 }
 
@@ -114,5 +148,9 @@ $font-stack: 'Handlee', cursive;
 
   .addTaskBut {
     width: 15%;
+  }
+
+  .btn-toolbar.addCategory {
+    width: 25%;
   }
 }

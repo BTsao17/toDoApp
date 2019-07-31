@@ -5,6 +5,8 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
 
 class App extends Component {
   constructor() {
@@ -127,8 +129,8 @@ class App extends Component {
   }
 
   render() {
-    const {displayOption} = this.state
-    
+    const { displayOption } = this.state;
+
     let viewToDosByCategory = this.state.toDoArr.filter((todo) => {
       if (Number(this.state.categoryOption) === 0) {
         return todo;
@@ -191,45 +193,54 @@ class App extends Component {
 
         <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
 
-        <div className="categoryInfo">
-          <div className="categoryChoices">
-            <Form.Label className="categoryChoices-label">Categories:</Form.Label>
-            <Form.Control
-              as="select"
-              id="categoryOption"
-              className="categoryChoices-options"
-              value={this.state.categoryOption}
-              onChange={this.selectedView}
-            >
-              <option value="0">All</option>
-              {categoryList}
-            </Form.Control>
-          </div>
-          <AddNewCategory addCategory={this.addCategory} />
-        </div>
-
-        <div className="tasksInfo">
-          <div className="tasksStatus">
-            <Form.Label className="tasksStatus-label">Tasks:</Form.Label>
-            <Form.Control
-              as="select"
-              id="displayOption"
-              className="tasksStatus-options"
-              value={this.state.displayOption}
-              onChange={this.selectedView}
-            >
-              <option value="all">all</option>
-              <option value="active">active</option>
-              <option value="complete">complete</option>
-            </Form.Control>
-          </div>
+        <div className="otherInfo">
 
           <div className="toDoCounter">
             <div className="counterType">All: {viewToDosByCategory.length}</div>
             <div className="counterType">Active: {countTask.false === undefined ? 0 : countTask.false}</div>
             <div className="counterType">Completed: {countTask.true === undefined ? 0 : countTask.true}</div>
           </div>
+          <AddNewCategory addCategory={this.addCategory} />
         </div>
+
+        <Accordion className="filters">
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Filters
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body className="filterList filterList-padding">
+                <div className="catFilter">
+                  <Form.Label className="catFilter-label">Categories:</Form.Label>
+                  <Form.Control
+                    as="select"
+                    id="categoryOption"
+                    className="catFilter-options"
+                    value={this.state.categoryOption}
+                    onChange={this.selectedView}
+                  >
+                    <option value="0">All</option>
+                    {categoryList}
+                  </Form.Control>
+                </div>
+                <div className="taskFilter">
+                  <Form.Label className="taskFilter-label">Tasks:</Form.Label>
+                  <Form.Control
+                    as="select"
+                    id="displayOption"
+                    className="taskFilter-options"
+                    value={this.state.displayOption}
+                    onChange={this.selectedView}
+                  >
+                    <option value="all">all</option>
+                    <option value="active">active</option>
+                    <option value="complete">complete</option>
+                  </Form.Control>
+                </div>
+              </Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
 
         <ToDoList
           viewToDosByCategory={viewToDosByCategory}
@@ -238,14 +249,12 @@ class App extends Component {
           changeCompleted={this.changeCompleted}
         />
 
-        {displayOption !== "active" && showDelBut && (<Button
-          variant="info"
-          onClick={this.clearCompleted}
-        >
-          Delete All Completed Tasks
-        </Button>
+        {displayOption !== 'active' &&
+        showDelBut && (
+          <Button variant="info" onClick={this.clearCompleted}>
+            Delete All Completed Tasks
+          </Button>
         )}
-
       </Container>
     );
   }
