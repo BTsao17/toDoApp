@@ -144,18 +144,6 @@ class App extends Component {
       return task.completed;
     });
 
-    // let viewToDosByStatus = this.state.toDoArr.filter((todo) => {
-    //   if (this.state.displayOption === 'active' && todo.completed === false) {
-    //     return todo
-    //   } else if (this.state.displayOption === 'complete' && todo.completed === true) {
-    //     return todo
-    //   } else if (this.state.displayOption === 'all') {
-    //     return todo
-    //   } else {
-    //     return null
-    //   }
-    // })
-
     let countTask = viewToDosByCategory.reduce((acc, currV) => {
       let key = currV['completed'];
       if (typeof acc[key] === 'undefined') {
@@ -194,7 +182,6 @@ class App extends Component {
         <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
 
         <div className="otherInfo">
-
           <div className="toDoCounter">
             <div className="counterType">All: {viewToDosByCategory.length}</div>
             <div className="counterType">Active: {countTask.false === undefined ? 0 : countTask.false}</div>

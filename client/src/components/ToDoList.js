@@ -63,11 +63,7 @@ class ToDoList extends Component {
       );
     });
 
-    //console.log(conditionalSortingRendering)
-    // console.log(sortByCategory)
-
-    return <ListGroup className="tasksList">{list}</ListGroup>
-    // <ul className="list-group">{list}</ul>;
+    return <ListGroup className="tasksList">{list}</ListGroup>;
   }
 }
 
