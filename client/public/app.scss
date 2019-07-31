@@ -1,4 +1,6 @@
 $font-stack: 'Handlee', cursive;
+$primary-background-color: rgb(234, 250, 237);
+$secondary-background-color: rgba(254, 242, 176, 0.2);
 
 .body--background {
   background-image: url('images/leaves.png');
@@ -17,7 +19,7 @@ $font-stack: 'Handlee', cursive;
   margin-top: 2rem;
   padding: 1rem;
   border: 2px dotted lightgray;
-  background-color: rgb(221, 250, 216);
+  background-color: $primary-background-color;
 }
 
 .done {
@@ -45,6 +47,14 @@ $font-stack: 'Handlee', cursive;
   .filterList.filterList-padding {
     padding: 1rem;
   }
+
+  .filterList {
+    background-color: $secondary-background-color;
+  }
+
+  .card-header {
+    background-color: rgba(0, 0, 0, 0);
+  }
 }
 
 .accordion {
@@ -58,7 +68,7 @@ $font-stack: 'Handlee', cursive;
     border-top-right-radius: 0.25rem;
     border-top-left-radius: 0.25rem;
   }
-  }
+}
 
 .catFilter,
 .taskFilter {
@@ -81,6 +91,7 @@ $font-stack: 'Handlee', cursive;
     > label {
       margin: 0px 0px 0px 10px;
     }
+    background-color: $primary-background-color;
   }
 }
 

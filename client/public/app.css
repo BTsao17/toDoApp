@@ -16,7 +16,7 @@
   margin-top: 2rem;
   padding: 1rem;
   border: 2px dotted lightgray;
-  background-color: #ddfad8;
+  background-color: #eafaed;
 }
 
 .done {
@@ -45,6 +45,14 @@
 
 .filters .filterList.filterList-padding {
   padding: 1rem;
+}
+
+.filters .filterList {
+  background-color: rgba(254, 242, 176, 0.2);
+}
+
+.filters .card-header {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .accordion .card:first-of-type {
@@ -82,6 +90,7 @@
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
+  background-color: #eafaed;
 }
 
 .tasksList .tasksList-item > label {
