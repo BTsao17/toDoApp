@@ -53,7 +53,7 @@ class AddCategoryModal extends Component {
   };
   render() {
     return (
-      <Modal {...this.props} size="lg" centered>
+      <Modal show={this.props.show} size="lg" centered>
         <Modal.Header>
           <Modal.Title>Custom Category</Modal.Title>
         </Modal.Header>
