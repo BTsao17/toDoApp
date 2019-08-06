@@ -35,6 +35,7 @@ class App extends Component {
   };
 
   addCategory = (category) => {
+    console.log("add category success")
     axios
       .post(`/category`, { category })
       .then((response) => {
@@ -179,7 +180,7 @@ class App extends Component {
       <Container>
         <h1 className="text-center title">To-Do List</h1>
 
-        <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} />
+        <AddToDoForm addToDoList={this.addToDoList} categoryList={categoryList} addCategory={this.addCategory} />
 
         <div className="otherInfo">
           <div className="toDoCounter">
@@ -187,7 +188,9 @@ class App extends Component {
             <div className="counterType">Active: {countTask.false === undefined ? 0 : countTask.false}</div>
             <div className="counterType">Completed: {countTask.true === undefined ? 0 : countTask.true}</div>
           </div>
-          <AddNewCategory addCategory={this.addCategory} />
+
+          {/* <AddNewCategory addCategory={this.addCategory} /> */}
+        
         </div>
 
         <Accordion className="filters">
