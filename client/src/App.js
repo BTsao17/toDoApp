@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AddToDoForm, ToDoList, AddNewCategory } from './components';
+import { AddToDoForm, ToDoList } from './components';
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -35,7 +35,7 @@ class App extends Component {
   };
 
   addCategory = (category) => {
-    console.log("add category success")
+    console.log('add category success');
     axios
       .post(`/category`, { category })
       .then((response) => {
@@ -190,7 +190,6 @@ class App extends Component {
           </div>
 
           {/* <AddNewCategory addCategory={this.addCategory} /> */}
-        
         </div>
 
         <Accordion className="filters">
