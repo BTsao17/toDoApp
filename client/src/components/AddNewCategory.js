@@ -1,5 +1,5 @@
+//component obsolete - button not used anymore
 import React, { Component } from 'react';
-
 import Modal from 'react-bootstrap/Modal';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
