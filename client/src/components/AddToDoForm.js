@@ -23,7 +23,6 @@ class AddToDoForm extends Component {
 
   handleChange = (e) => {
     if (e.target.value === 'addNewCategory') {
-      console.log('testing modal sucess');
       this.setState({
         modalShow: true,
       });
@@ -36,7 +35,6 @@ class AddToDoForm extends Component {
   };
 
   handleSubmit = (e) => {
-    //e.preventDefault() //is preventDefault still necessary?
     this.props.addToDoList(this.state);
     this.setState({
       task: '',

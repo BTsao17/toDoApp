@@ -104,18 +104,6 @@ class App extends Component {
     });
   };
 
-  // viewToDoByCategory = () => {
-  //   axios
-  //     .get(`${baseUrl}/${this.state.categoryOption}`)
-  //     .then((response) => {
-  //       //console.log(response)
-  //       this.setState({
-  //         toDoArr: response.data
-  //       })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
   componentDidMount() {
     Promise.all([ axios.get(`/toDos`), axios.get(`/category`) ])
       .then(([ toDosResponse, categoriesResponse ]) => {
@@ -188,8 +176,6 @@ class App extends Component {
             <div className="counterType">Active: {countTask.false === undefined ? 0 : countTask.false}</div>
             <div className="counterType">Completed: {countTask.true === undefined ? 0 : countTask.true}</div>
           </div>
-
-          {/* <AddNewCategory addCategory={this.addCategory} /> */}
         </div>
 
         <Accordion className="filters">
